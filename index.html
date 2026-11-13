@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPlanner - Planificador Académico Inteligente</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Header Navigation -->
+        <header class="app-header">
+            <div class="brand">
+                <span class="brand-icon">🎓</span>
+                <h1>EduPlanner</h1>
+            </div>
+            
+            <div class="profile-selector">
+                <span class="selector-label">Perfil activo:</span>
+                <div class="toggle-buttons">
+                    <button id="btn-student" class="profile-btn active" data-profile="student">
+                        <span class="icon">🎒</span> Estudiante
+                    </button>
+                    <button id="btn-professor" class="profile-btn" data-profile="professor">
+                        <span class="icon">📚</span> Profesor
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- ================= STUDENT VIEW ================= -->
+            <section id="student-view" class="view-section active">
+                <div class="view-header">
+                    <h2>Panel de Estudiante</h2>
+                    <p class="subtitle">Organiza tus clases, mantén el control de tus tareas y calcula tu rendimiento académico.</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Widget 1: Horario Semanal -->
+                    <div class="card schedule-card">
+                        <div class="card-header">
+                            <h3>📅 Horario Semanal</h3>
+                            <button class="btn-primary-sm" id="add-schedule-btn">+ Añadir Clase</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="schedule-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Hora</th>
+                                            <th>Lunes</th>
+                                            <th>Martes</th>
+                                            <th>Miércoles</th>
+                                            <th>Jueves</th>
+                                            <th>Viernes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="schedule-tbody">
+                                        <!-- Dinámico por JS -->
+                                        <tr>
+                                            <td>08:00 - 09:30</td>
+                                            <td><span class="class-badge math">Matemáticas</span></td>
+                                            <td><span class="class-badge phys">Física</span></td>
+                                            <td><span class="class-badge math">Matemáticas</span></td>
+                                            <td><span class="class-badge phys">Física</span></td>
+                                            <td><span class="class-badge prog">Programación</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>09:45 - 11:15</td>
+                                            <td><span class="class-badge prog">Programación</span></td>
+                                            <td><span class="class-badge lit">Literatura</span></td>
+                                            <td><span class="class-badge prog">Programación</span></td>
+                                            <td><span class="class-badge lit">Literatura</span></td>
+                                            <td><span class="class-badge math">Matemáticas</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Widget 2: Tareas y Exámenes con Cuenta Regresiva -->
+                    <div class="card tasks-card">
+                        <div class="card-header">
+                            <h3>⏳ Tareas y Exámenes</h3>
+                            <button class="btn-primary-sm" id="add-task-btn">+ Nueva Tarea</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="task-filters">
+                                <button class="filter-btn active" data-filter="all">Todas</button>
+                                <button class="filter-btn" data-filter="pending">Pendientes</button>
+                                <button class="filter-btn" data-filter="exam">Exámenes</button>
+                            </div>
+                            <ul id="task-list" class="task-list">
+                                <!-- Dinámico por JS -->
+                                <li class="task-item exam">
+                                    <div class="task-info">
+                                        <span class="badge-type exam">Examen</span>
+                                        <h4>Examen Parcial de Matemáticas</h4>
+                                        <p class="task-date">📅 20 Nov 2026, 10:00 AM</p>
+                                    </div>
+                                    <div class="countdown-badge urgent" data-date="2026-11-20T10:00:00">
+                                        Calculando...
+                                    </div>
+                                    <div class="task-actions">
+                                        <button class="btn-icon complete-task" title="Completar">✓</button>
+                                        <button class="btn-icon delete-task" title="Eliminar">✕</button>
+                                    </div>
+                                </li>
+                                <li class="task-item assignment">
+                                    <div class="task-info">
+                                        <span class="badge-type assignment">Tarea</span>
+                                        <h4>Proyecto Final JavaScript</h4>
+                                        <p class="task-date">📅 25 Nov 2026, 23:59</p>
+                                    </div>
+                                    <div class="countdown-badge" data-date="2026-11-25T23:59:00">
+                                        Calculando...
+                                    </div>
+                                    <div class="task-actions">
+                                        <button class="btn-icon complete-task" title="Completar">✓</button>
+                                        <button class="btn-icon delete-task" title="Eliminar">✕</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Widget 3: Calculadora de Promedios -->
+                    <div class="card gpa-card">
+                        <div class="card-header">
+                            <h3>📊 Calculadora de Promedios (GPA)</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="gpa-display">
+                                <span class="gpa-label">Promedio Ponderado Actual</span>
+                                <h2 id="gpa-score">4.65</h2>
+                            </div>
+                            <form id="gpa-form" class="gpa-form">
+                                <div class="form-group">
+                                    <input type="text" id="gpa-subject" placeholder="Asignatura (ej. Álgebra)" required>
+                                </div>
+                                <div class="form-row">
+                                    <input type="number" id="gpa-grade" placeholder="Calificación (0-5)" step="0.1" min="0" max="5" required>
+                                    <input type="number" id="gpa-credits" placeholder="Créditos" min="1" max="10" required>
+                                    <button type="submit" class="btn-primary-sm">Agregar</button>
+                                </div>
+                            </form>
+                            <div class="table-responsive">
+                                <table class="gpa-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Materia</th>
+                                            <th>Nota</th>
+                                            <th>Créditos</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="gpa-tbody">
+                                        <!-- Dinámico por JS -->
+                                        <tr>
+                                            <td>Matemáticas</td>
+                                            <td>4.8</td>
+                                            <td>4</td>
+                                            <td><button class="btn-icon-danger delete-gpa">✕</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Física</td>
+                                            <td>4.5</td>
+                                            <td>3</td>
+                                            <td><button class="btn-icon-danger delete-gpa">✕</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= PROFESSOR VIEW ================= -->
+            <section id="professor-view" class="view-section">
+                <div class="view-header">
+                    <h2>Panel de Profesor</h2>
+                    <p class="subtitle">Gestiona tus cursos, comparte recursos académicos y crea evaluaciones rápidas.</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Widget 1: Listado de Cursos -->
+                    <div class="card courses-card">
+                        <div class="card-header">
+                            <h3>📚 Mis Cursos</h3>
+                            <button class="btn-primary-sm" id="add-course-btn">+ Nuevo Curso</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="courses-grid" id="courses-grid-container">
+                                <!-- Dinámico por JS -->
+                                <div class="course-card-item">
+                                    <div class="course-color-bar" style="background: var(--primary);"></div>
+                                    <div class="course-details">
+                                        <h4>Matemáticas Avanzadas</h4>
+                                        <p>Estudiantes matriculados: <strong>32</strong></p>
+                                        <p>Horario: Lun / Mié 08:00</p>
+                                    </div>
+                                    <div class="course-footer">
+                                        <span class="badge-active">Activo</span>
+                                        <button class="btn-text">Ver Detalles</button>
+                                    </div>
+                                </div>
+                                <div class="course-card-item">
+                                    <div class="course-color-bar" style="background: var(--accent);"></div>
+                                    <div class="course-details">
+                                        <h4>Programación Web I</h4>
+                                        <p>Estudiantes matriculados: <strong>28</strong></p>
+                                        <p>Horario: Mar / Jue 10:00</p>
+                                    </div>
+                                    <div class="course-footer">
+                                        <span class="badge-active">Activo</span>
+                                        <button class="btn-text">Ver Detalles</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Widget 2: Repositorio de Recursos -->
+                    <div class="card resources-card">
+                        <div class="card-header">
+                            <h3>📁 Repositorio de Recursos</h3>
+                            <button class="btn-primary-sm" id="upload-resource-btn">+ Subir Recurso</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="resource-search">
+                                <input type="text" id="resource-search-input" placeholder="Buscar documento, enlace o guía...">
+                            </div>
+                            <ul id="resource-list" class="resource-list">
+                                <!-- Dinámico por JS -->
+                                <li class="resource-item">
+                                    <div class="resource-icon">📄</div>
+                                    <div class="resource-info">
+                                        <h4>Guía de Derivadas e Integrales.pdf</h4>
+                                        <span class="resource-meta">Matemáticas • 2.4 MB • Subido el 10 Nov</span>
+                                    </div>
+                                    <a href="#" class="btn-icon" title="Descargar">⬇</a>
+                                </li>
+                                <li class="resource-item">
+                                    <div class="resource-icon">🔗</div>
+                                    <div class="resource-info">
+                                        <h4>Documentación Oficial Flexbox & Grid</h4>
+                                        <span class="resource-meta">Programación Web • Enlace externo</span>
+                                    </div>
+                                    <a href="#" class="btn-icon" title="Abrir">↗</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Widget 3: Creador Rápido de Quizzes -->
+                    <div class="card quiz-card">
+                        <div class="card-header">
+                            <h3>⚡ Creador Rápido de Quizzes</h3>
+                        </div>
+                        <div class="card-body">
+                            <form id="quiz-form" class="quiz-form">
+                                <div class="form-group">
+                                    <input type="text" id="quiz-title" placeholder="Título del Quiz (ej. Quiz 1 - CSS Grid)" required>
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="quiz-question" placeholder="Escribe la pregunta aquí..." rows="2" required></textarea>
+                                </div>
+                                <div class="options-container" id="quiz-options">
+                                    <div class="option-row">
+                                        <input type="radio" name="correct-option" value="0" checked>
+                                        <input type="text" placeholder="Opción A (Correcta)" class="opt-input" required>
+                                    </div>
+                                    <div class="option-row">
+                                        <input type="radio" name="correct-option" value="1">
+                                        <input type="text" placeholder="Opción B" class="opt-input" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn-primary w-full">Generar y Compartir Quiz</button>
+                            </form>
+                            <div id="quiz-output" class="quiz-output hidden">
+                                <p>✅ ¡Quiz creado con éxito! Código para estudiantes:</p>
+                                <div class="quiz-code-box">
+                                    <span id="generated-quiz-code">EDU-8492</span>
+                                    <button class="btn-primary-sm" id="copy-code-btn">Copiar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modales Genéricos / Diálogos -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal-card" id="modal-content">
+            <!-- Contenido dinámico de modales -->
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
